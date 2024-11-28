@@ -60,8 +60,14 @@
 		<view class="theme">
 			<common-title>
 				<template #name>专题精选</template>
-				<template #customer>more+</template>
+				<template #customer>
+					<navigator url="#" class="more">More+</navigator>
+				</template>
 			</common-title>
+			
+			<view class="content">
+				<theme-item v-for="item in 8"></theme-item>
+			</view>
 		</view>
 	</view>
 </template>
@@ -159,6 +165,20 @@
 					margin-right: 30rpx;
 				}
 			}
+		}
+	}
+	.theme{
+		padding-top: 50rpx;
+		.more{
+			font-size: 32rpx;
+			color: #777;
+		}
+		.content{
+			margin-top: 30rpx;
+			padding: 0 30rpx;
+			display: grid;
+			gap: 15rpx;
+			grid-template-columns: repeat(3, 1fr);
 		}
 	}
 }
