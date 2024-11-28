@@ -5,6 +5,20 @@
 			"style": {
 				"navigationBarTitleText": "壁纸"
 			}
+		},
+		{
+			"path" : "pages/classify/classify",
+			"style" : 
+			{
+				"navigationBarTitleText" : "分类"
+			}
+		},
+		{
+			"path" : "pages/user/user",
+			"style" : 
+			{
+				"navigationBarTitleText" : "用户"
+			}
 		}
 	],
 	"globalStyle": {
@@ -12,6 +26,28 @@
 		"navigationBarTitleText": "壁纸",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"list": [
+			{
+				"text": "首页",
+				"pagePath": "pages/index/index",
+				"iconPath": "static/images/tabBar/home.png",
+				"selectedIconPath": "static/images/tabBar/home-h.png"
+			},
+			{
+				"text": "分类",
+				"pagePath": "pages/classify/classify",
+				"iconPath": "static/images/tabBar/classify.png",
+				"selectedIconPath": "static/images/tabBar/classify-h.png"
+			},
+			{
+				"text": "我的",
+				"pagePath": "pages/user/user",
+				"iconPath": "static/images/tabBar/user.png",
+				"selectedIconPath": "static/images/tabBar/user-h.png"
+			}
+		]
 	},
 	"uniIdRouter": {}
 }
