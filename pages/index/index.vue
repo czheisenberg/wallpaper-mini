@@ -31,8 +31,37 @@
 				</swiper>
 			</view>
 			<view class="right">
-				<uni-icons type="right" size="20" color="#333"></uni-icons>
+				<uni-icons type="right" size="18" color="#333"></uni-icons>
 			</view>
+		</view>
+		
+		<view class="select">
+			<common-title>
+				<template #name>每日推荐</template>
+				<template #customer>
+					<view class="calendar">
+						<uni-icons type="calendar" size="30" color="#28b389"></uni-icons>
+						<view class="text">
+							<uni-dateformat :date="Date.now()" format="dd"></uni-dateformat>
+						</view>
+						
+					</view>
+				</template>
+			</common-title>
+			<view class="content">
+				<scroll-view scroll-x="true" >
+					<view class="box" v-for="item in 8 ">
+						<image src="../../common/images/preview_small.webp" mode="aspectFill"></image>
+					</view>
+				</scroll-view>
+			</view>
+		</view>
+		
+		<view class="theme">
+			<common-title>
+				<template #name>专题精选</template>
+				<template #customer>more+</template>
+			</common-title>
 		</view>
 	</view>
 </template>
@@ -99,6 +128,37 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+		}
+	}
+	
+	.select{
+		padding-top: 50rpx;
+		.calendar{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.content{
+			width: 720rpx;
+			margin-left: 30rpx;
+			margin-top: 30rpx;
+			scroll-view{
+				white-space: nowrap;
+				.box{
+					width: 220rpx;
+					height: 430rpx;
+					display: inline-block;
+					margin-right: 15rpx;
+					image{
+						width: 100%;
+						height: 100%;
+						border-radius: 10rpx;
+					}
+				}
+				.box:last-child{
+					margin-right: 30rpx;
+				}
+			}
 		}
 	}
 }
