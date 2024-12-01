@@ -3,21 +3,31 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "壁纸"
+				"navigationBarTitleText": "壁纸",
+				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path" : "pages/classify/classify",
 			"style" : 
 			{
-				"navigationBarTitleText" : "分类"
+				"navigationBarTitleText" : "分类",
+				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path" : "pages/user/user",
 			"style" : 
 			{
-				"navigationBarTitleText" : "用户"
+				"navigationBarTitleText" : "用户",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/classlist/classlist",
+			"style" : 
+			{
+				"navigationBarTitleText" : "分类列表"
 			}
 		}
 	],

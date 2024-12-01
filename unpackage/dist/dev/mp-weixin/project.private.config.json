@@ -8,6 +8,20 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/classlist/classlist",
+          "pathName": "pages/classlist/classlist",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/classList/classList",
+          "pathName": "pages/classList/classList",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/classify/classify",
           "pathName": "pages/classify/classify",
           "query": "",

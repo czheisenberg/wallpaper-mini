@@ -10,6 +10,7 @@
 		
 		<view class="section">
 			<view class="list">
+				<navigator url="/pages/classlist/classlist">
 				<view class="row">
 					<view class="left">
 						<uni-icons type="cloud-download-filled" size="25"></uni-icons>
@@ -20,7 +21,9 @@
 						<uni-icons type="right" size="20" color="#aaa"></uni-icons>
 					</view>
 				</view>
+				</navigator>
 				
+				<navigator url="/pages/classlist/classlist">
 				<view class="row">
 					<view class="left">
 						<uni-icons type="heart-filled" size="25"></uni-icons>
@@ -31,6 +34,7 @@
 						<uni-icons type="right" size="20" color="#aaa"></uni-icons>
 					</view>
 				</view>
+				</navigator>
 				
 				<view class="row">
 					<view class="left">
@@ -52,7 +56,7 @@
 		</view>
 		
 		<view class="section">
-			<view class="list">			
+			<view class="list">		
 				<view class="row">
 					<view class="left">
 						<uni-icons type="notification-filled" size="25"></uni-icons>
