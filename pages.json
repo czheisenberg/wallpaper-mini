@@ -28,6 +28,8 @@
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
+		"color": "#9799a5",
+		"selectedColor": "#28B389",
 		"list": [
 			{
 				"text": "首页",
