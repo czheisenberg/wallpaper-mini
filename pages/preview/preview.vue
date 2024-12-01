@@ -18,7 +18,7 @@
 				<uni-dateformat :date="new Date()" format="MM月dd日"></uni-dateformat>
 			</view>
 			<view class="footer">
-				<view class="box">
+				<view class="box" @click="clickInfo">
 					<uni-icons type="info" size="28"></uni-icons>
 					<view class="text">信息</view>
 				</view>
@@ -34,6 +34,57 @@
 				</view>
 			</view>
 		</view>
+		
+		<uni-popup ref="infoPopup" type="bottom">
+			<view class="infoPopup">
+				<view class="popupHeader">
+					<view></view>
+					<view class="title">壁纸信息</view>
+					<view class="close" @click="clickInfoClose">
+						<uni-icons type="closeempty" size="18" color="#999"></uni-icons>
+					</view>
+				</view>
+				<scroll-view scroll-y="true" >
+					<view class="content">
+						<view class="row">
+							<view class="label">壁纸ID:</view>
+							<text selectable class="value id"> 132234141axs</text>
+						</view>
+						<view class="row">
+							<view class="label">分类:</view>
+							<text selectable class="value classify"> 明星美女</text>
+						</view>
+						<view class="row">
+							<view class="label">发布者:</view>
+							<text selectable class="value"> root</text>
+						</view>
+						<view class="row">
+							<view class="label">评分:</view>
+							<text selectable class="value">
+								<uni-rate readonly="true" value="3"/>
+							</text>
+						</view>
+						<view class="row">
+							<view class="label">摘要:</view>
+							<text selectable class="value">
+								测试摘要内容测试摘要内容测试摘要内容测试摘要内容测试摘要内容测试摘要内容测试摘要内容
+								测试摘要内容测试摘要内容测试摘要内容测试摘要内容测试摘要内容测试摘要内容测试摘要内容
+							</text>
+						</view>
+						<view class="row">
+							<view class="label">标签:</view>
+							<view class="value tags">
+								<view class="tag" v-for="(item, index) in 3" :key="index">标签名</view>
+							</view>
+						</view>
+						
+						<view class="copyright">
+							声明: 所有图片均来自互联网，非商业使用，仅用于免费学习交流，如有侵权，您可以联系平台删除。谢谢合作。
+						</view>
+					</view>
+				</scroll-view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -41,9 +92,15 @@
 import {ref} from 'vue';
 
 const maskState = ref(true)
+const infoPopup = ref(null)
 const maskChange = () =>{
 	maskState.value = !maskState.value
-
+}
+const clickInfo = ()=>{
+	infoPopup.value.open()
+}
+const clickInfoClose = ()=>{
+	infoPopup.value.close()
 }
 </script>
 
@@ -115,6 +172,73 @@ const maskChange = () =>{
 				.text{
 					color: #777;
 					font-size: 26rpx;
+				}
+			}
+		}
+	}
+	
+	.infoPopup{
+		background-color: #fff;
+		padding: 30rpx;
+		border-radius: 30rpx 30rpx 0 0;
+		overflow: hidden;
+		.popupHeader{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			.title{
+				color: #676767;
+			}
+			.close{
+				padding: 10rpx;
+			}
+		}
+		scroll-view{
+			max-height: 60vh;
+			.content{
+				.copyright{
+					margin: 10rpx 20rpx;
+					background-color: #f6f6f6;
+					font-size: 28rpx;
+					padding: 15rpx;
+					border-radius: 12rpx;
+				}
+				.row{
+					display: flex;
+					align-items: center;
+					padding: 15rpx 0;
+					font-size: 32rpx;
+					line-height: 1em;
+					.label{
+						color: #a7a7a7;
+						width: 140rpx;
+						text-align: center;
+						font-size: 30rpx ;
+					}
+					.value{
+						flex: 1;
+						width: 0;
+					}
+					.tags{
+						display: flex;
+						flex-wrap: wrap;
+						.tag{
+							padding: 10rpx 30rpx;
+							line-height: 1em;
+							font-size: 22rpx;
+							border: 1px solid $brand-theme-color;
+							border-radius: 40rpx;
+							color: $brand-theme-color;
+							margin: 0 10rpx 10rpx 0;
+			
+						}
+					}
+					.classify{
+						color: $brand-theme-color;
+					}
+					.id{
+						color: #bbb;
+					}
 				}
 			}
 		}
