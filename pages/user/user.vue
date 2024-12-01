@@ -41,6 +41,12 @@
 						<view class="text">0</view>
 						<uni-icons type="right" size="20" color="#aaa"></uni-icons>
 					</view>
+					<!-- #ifdef MP-WEIXIN -->
+					<button open-type="contact">联系客服</button>
+					<!-- #endif -->
+					<!-- #ifndef MP-WEIXIN -->
+					<button @click="clickConcat">拨打电话</button>
+					<!-- #endif -->
 				</view>
 			</view>
 		</view>
@@ -75,6 +81,11 @@
 
 <script setup>
 
+const clickConcat = function(){
+	uni.makePhoneCall({
+		phoneNumber:'114'
+	})
+}
 
 </script>
 
@@ -121,6 +132,7 @@
 				align-items: center;
 				padding: 0 30rpx;
 				height: 100rpx;
+				position: relative;
 				border-bottom: 1px solid #eee;
 				&:last-child{
 					border-bottom: none;
@@ -140,6 +152,14 @@
 						font-size: 28rpx;
 						color: #aaa;
 					}
+				}
+				button{
+					position: absolute;
+					top: 0;
+					left: 0;
+					height: 100rpx;
+					width: 100%;
+					opacity: 0;
 				}
 			}
 		}
