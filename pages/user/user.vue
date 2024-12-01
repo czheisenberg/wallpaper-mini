@@ -1,5 +1,5 @@
 <template>
-	<view class="userLayout">
+	<view class="userLayout pageBg">
 		<view class="userInfo">
 			<view class="avatar">
 				<image src="../../static/images/5.jpg" mode="aspectFill"></image>
@@ -134,6 +134,7 @@ const clickConcat = function(){
 				height: 100rpx;
 				position: relative;
 				border-bottom: 1px solid #eee;
+				background-color: #fff;
 				&:last-child{
 					border-bottom: none;
 				}
