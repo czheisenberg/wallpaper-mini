@@ -11,9 +11,10 @@ if (!Math) {
 }
 function _sfc_render(_ctx, _cache) {
   return {
-    a: common_vendor.f(15, (item, k0, i0) => {
+    a: common_vendor.f(15, (item, index, i0) => {
       return {
-        a: "d54a2960-0-" + i0
+        a: index,
+        b: "d54a2960-0-" + i0
       };
     })
   };

@@ -12,7 +12,7 @@
 			<view class="list">
 				<view class="row">
 					<view class="left">
-						<uni-icons type="cloud-download-filled" size="25" color="#28b389"></uni-icons>
+						<uni-icons type="cloud-download-filled" size="25"></uni-icons>
 						<view class="text">我的下载</view>
 					</view>
 					<view class="right">
@@ -23,7 +23,7 @@
 				
 				<view class="row">
 					<view class="left">
-						<uni-icons type="heart-filled" size="25" color="#28b389"></uni-icons>
+						<uni-icons type="heart-filled" size="25"></uni-icons>
 						<view class="text">我的评分</view>
 					</view>
 					<view class="right">
@@ -34,7 +34,7 @@
 				
 				<view class="row">
 					<view class="left">
-						<uni-icons type="chatboxes-filled" size="25" color="#28b389"></uni-icons>
+						<uni-icons type="chatboxes-filled" size="25"></uni-icons>
 						<view class="text">联系客服</view>
 					</view>
 					<view class="right">
@@ -55,7 +55,7 @@
 			<view class="list">			
 				<view class="row">
 					<view class="left">
-						<uni-icons type="notification-filled" size="25" color="#28b389"></uni-icons>
+						<uni-icons type="notification-filled" size="25"></uni-icons>
 						<view class="text">订阅更新</view>
 					</view>
 					<view class="right">
@@ -66,7 +66,7 @@
 				
 				<view class="row">
 					<view class="left">
-						<uni-icons type="flag-filled" size="25" color="#28b389"></uni-icons>
+						<uni-icons type="flag-filled" size="25"></uni-icons>
 						<view class="text">常见问题</view>
 					</view>
 					<view class="right">
@@ -142,6 +142,11 @@ const clickConcat = function(){
 					display: flex;
 					align-items: center;
 					gap: 15rpx;
+					:deep(){
+						.uni-icons{
+							color: $brand-theme-color !important;
+						}
+					}
 					.text{
 						color: #666;
 					}

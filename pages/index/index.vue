@@ -22,12 +22,12 @@
 		
 		<view class="notice">
 			<view class="left">
-				<uni-icons type="notification" size="20" color="#28b389"></uni-icons>
+				<uni-icons type="notification" size="20"></uni-icons>
 				<text class="text">公告</text>
 			</view>
 			<view class="center">
 				<swiper vertical="true" circular="true" autoplay="true" interval="1500" duration="300">
-					<swiper-item v-for="item in 5">具体内容内容内容内容内容内容内容内容内容内容内容</swiper-item>
+					<swiper-item v-for="(item, index) in 5" :key="index">具体内容内容内容内容内容内容内容内容内容内容内容</swiper-item>
 				</swiper>
 			</view>
 			<view class="right">
@@ -40,7 +40,7 @@
 				<template #name>每日推荐</template>
 				<template #customer>
 					<view class="calendar">
-						<uni-icons type="calendar" size="30" color="#28b389"></uni-icons>
+						<uni-icons type="calendar" size="30"></uni-icons>
 						<view class="text">
 							<uni-dateformat :date="Date.now()" format="dd"></uni-dateformat>
 						</view>
@@ -50,7 +50,7 @@
 			</common-title>
 			<view class="content">
 				<scroll-view scroll-x="true" >
-					<view class="box" v-for="item in 8 ">
+					<view class="box" v-for="(item, index) in 8 " :key="index">
 						<image src="../../common/images/preview_small.webp" mode="aspectFill"></image>
 					</view>
 				</scroll-view>
@@ -66,7 +66,7 @@
 			</common-title>
 			
 			<view class="content">
-				<theme-item v-for="item in 8"></theme-item>
+				<theme-item v-for="(item, index) in 8" :key="index"></theme-item>
 				<theme-item :isMore="true"></theme-item>
 			</view>
 		</view>
@@ -110,8 +110,13 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			:deep(){
+				.uni-icons{
+					color: $brand-theme-color !important;
+				}
+			}  
 			text{
-				color: #28b389;
+				color: $brand-theme-color ;
 				font-size: 28rpx;
 				font-weight: 600
 			}
@@ -144,6 +149,12 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			color: $brand-theme-color;
+			:deep(){
+				.uni-icons{
+					color: $brand-theme-color !important;
+				}
+			}
 		}
 		.content{
 			width: 720rpx;

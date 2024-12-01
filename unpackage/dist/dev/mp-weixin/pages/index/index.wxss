@@ -56,6 +56,9 @@
   justify-content: center;
   align-items: center;
 }
+.homeLayout .notice .left.data-v-1cf27b2a  .uni-icons {
+  color: #28b389 !important;
+}
 .homeLayout .notice .left text.data-v-1cf27b2a {
   color: #28b389;
   font-size: 28rpx;
@@ -88,6 +91,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #28b389;
+}
+.homeLayout .select .calendar.data-v-1cf27b2a  .uni-icons {
+  color: #28b389 !important;
 }
 .homeLayout .select .content.data-v-1cf27b2a {
   width: 720rpx;

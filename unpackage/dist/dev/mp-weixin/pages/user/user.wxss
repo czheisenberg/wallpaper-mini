@@ -74,6 +74,9 @@
   align-items: center;
   gap: 15rpx;
 }
+.userLayout .section .list .row .left.data-v-0f7520f0  .uni-icons {
+  color: #28b389 !important;
+}
 .userLayout .section .list .row .left .text.data-v-0f7520f0 {
   color: #666;
 }
