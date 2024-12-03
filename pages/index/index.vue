@@ -1,5 +1,6 @@
 <template>
 	<view class="homeLayout pageBg">
+		<custom-nav-bar></custom-nav-bar>
 		<view class="banner">
 			<swiper 
 				indicator-dots="true" 
