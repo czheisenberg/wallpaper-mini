@@ -1,6 +1,6 @@
 <template>
 	<view class="homeLayout pageBg">
-		<custom-nav-bar></custom-nav-bar>
+		<custom-nav-bar title="推荐"></custom-nav-bar>
 		<view class="banner">
 			<swiper 
 				indicator-dots="true" 
@@ -28,7 +28,9 @@
 			</view>
 			<view class="center">
 				<swiper vertical="true" circular="true" autoplay="true" interval="1500" duration="300">
-					<swiper-item v-for="(item, index) in 5" :key="index">具体内容内容内容内容内容内容内容内容内容内容内容</swiper-item>
+					<navigator url="/pages/notice/detail">
+						<swiper-item v-for="(item, index) in 5" :key="index">具体内容内容内容内容内容内容内容内容内容内容内容</swiper-item>
+					</navigator>
 				</swiper>
 			</view>
 			<view class="right">
@@ -51,7 +53,7 @@
 			</common-title>
 			<view class="content">
 				<scroll-view scroll-x="true" >
-					<view class="box" v-for="(item, index) in 8 " :key="index">
+					<view class="box" v-for="(item, index) in 8 " :key="index" @click="goPreview">
 						<image src="../../common/images/preview_small.webp" mode="aspectFill"></image>
 					</view>
 				</scroll-view>
@@ -75,7 +77,12 @@
 </template>
 
 <script setup>
-	
+
+const goPreview = () =>{
+	uni.navigateTo({
+		url: "/pages/preview/preview"
+	})
+}
 </script>
 
 <style lang="scss" scoped>

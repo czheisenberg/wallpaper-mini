@@ -9,7 +9,9 @@
 		</swiper>
 		
 		<view class="mask" v-if="maskState">
-			<view class="goback"></view>
+			<view class="goback" @click="goBack" :style="{top: getStatusBarHeight() + 'px'}">
+				<uni-icons type="back" size="20" color="#fff"></uni-icons>
+			</view>
 			<view class="count">3 / 5</view>
 			<view class="time">
 				<uni-dateformat :date="new Date()" format="hh:mm"></uni-dateformat>
@@ -111,12 +113,16 @@
 
 <script setup>
 import {ref} from 'vue';
+import {getStatusBarHeight} from "@/utils/system.js"
 
 const maskState = ref(true)
 const infoPopup = ref(null)
 const scorePopup = ref(null)
 const userScore = ref(0)
 
+const goBack = ()=>{
+	uni.navigateBack()
+}
 
 const maskChange = () =>{
 	maskState.value = !maskState.value
@@ -161,7 +167,18 @@ const submitScore = () =>{
 			color: #fff;
 		}
 		.goback{
-			
+			width: 38px;
+			height: 38px;
+			background-color: rgba(0,0,0, 0.5);
+			left: 30rpx;
+			margin-left: 0;
+			border-radius: 100px;
+			top: 0;
+			backdrop-filter: blur(10rpx);
+			border: 1rpx solid rgba(255,255,255,0.3);
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 		.count{
 			top: 10vh;

@@ -3,7 +3,7 @@
 		<view class="navbar">
 			<view class="statusBar" :style="{height: getStatusBarHeight() + 'px'}"></view>
 			<view class="titleBar" :style="{height: getTitleBarHeight() + 'px'}">
-				<view class="title">标题</view>
+				<view class="title">{{title}}</view>
 				<view class="search">
 					<uni-icons class="icon" type="search" color="#888" size="18"></uni-icons>
 					<text class="text">搜索</text>
@@ -19,6 +19,13 @@
 <script setup>
 import {ref} from 'vue';
 import {getStatusBarHeight, getTitleBarHeight, getNavBarHeight} from '@/utils/system.js';
+
+defineProps({
+	title:{
+		type: String,
+		default: ""
+	}
+})
 
 </script>
 

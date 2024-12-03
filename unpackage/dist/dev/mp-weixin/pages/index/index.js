@@ -1,7 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
-const _sfc_main = {};
 if (!Array) {
   const _easycom_custom_nav_bar2 = common_vendor.resolveComponent("custom-nav-bar");
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
@@ -18,49 +17,63 @@ const _easycom_theme_item = () => "../../components/theme-item/theme-item.js";
 if (!Math) {
   (_easycom_custom_nav_bar + _easycom_uni_icons + _easycom_uni_dateformat + _easycom_common_title + _easycom_theme_item)();
 }
-function _sfc_render(_ctx, _cache) {
-  return {
-    a: common_assets._imports_0,
-    b: common_assets._imports_1,
-    c: common_assets._imports_2,
-    d: common_vendor.p({
-      type: "notification",
-      size: "20"
-    }),
-    e: common_vendor.f(5, (item, index, i0) => {
+const _sfc_main = {
+  __name: "index",
+  setup(__props) {
+    const goPreview = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/preview/preview"
+      });
+    };
+    return (_ctx, _cache) => {
       return {
-        a: index
+        a: common_vendor.p({
+          title: "推荐"
+        }),
+        b: common_assets._imports_0,
+        c: common_assets._imports_1,
+        d: common_assets._imports_2,
+        e: common_vendor.p({
+          type: "notification",
+          size: "20"
+        }),
+        f: common_vendor.f(5, (item, index, i0) => {
+          return {
+            a: index
+          };
+        }),
+        g: common_vendor.p({
+          type: "right",
+          size: "18",
+          color: "#333"
+        }),
+        h: common_vendor.p({
+          type: "calendar",
+          size: "30"
+        }),
+        i: common_vendor.p({
+          date: Date.now(),
+          format: "dd"
+        }),
+        j: common_vendor.f(8, (item, index, i0) => {
+          return {
+            a: index,
+            b: common_vendor.o(goPreview, index)
+          };
+        }),
+        k: common_assets._imports_3,
+        l: common_vendor.f(8, (item, index, i0) => {
+          return {
+            a: index,
+            b: "1cf27b2a-7-" + i0
+          };
+        }),
+        m: common_vendor.p({
+          isMore: true
+        })
       };
-    }),
-    f: common_vendor.p({
-      type: "right",
-      size: "18",
-      color: "#333"
-    }),
-    g: common_vendor.p({
-      type: "calendar",
-      size: "30"
-    }),
-    h: common_vendor.p({
-      date: Date.now(),
-      format: "dd"
-    }),
-    i: common_vendor.f(8, (item, index, i0) => {
-      return {
-        a: index
-      };
-    }),
-    j: common_assets._imports_3,
-    k: common_vendor.f(8, (item, index, i0) => {
-      return {
-        a: index,
-        b: "1cf27b2a-7-" + i0
-      };
-    }),
-    l: common_vendor.p({
-      isMore: true
-    })
-  };
-}
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-1cf27b2a"]]);
+    };
+  }
+};
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1cf27b2a"]]);
 wx.createPage(MiniProgramPage);
