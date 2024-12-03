@@ -1,8 +1,8 @@
 <template>
 	<view class="navBarLayout">
 		<view class="navbar">
-			<view class="statusBar" :style="{height: statusBarHeight + 'px'}"></view>
-			<view class="titleBar" :style="{height: titleBarHeight + 'px'}">
+			<view class="statusBar" :style="{height: getStatusBarHeight() + 'px'}"></view>
+			<view class="titleBar" :style="{height: getTitleBarHeight() + 'px'}">
 				<view class="title">标题</view>
 				<view class="search">
 					<uni-icons class="icon" type="search" color="#888" size="18"></uni-icons>
@@ -10,7 +10,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="fill" :style="{height: statusBarHeight + titleBarHeight + 'px'}">
+		<view class="fill" :style="{height: getNavBarHeight() + 'px'}">
 			
 		</view>
 	</view>
@@ -18,11 +18,8 @@
 
 <script setup>
 import {ref} from 'vue';
-let SYSTEM_INFO = uni.getSystemInfoSync()
-let statusBarHeight = ref(SYSTEM_INFO.statusBarHeight)
+import {getStatusBarHeight, getTitleBarHeight, getNavBarHeight} from '@/utils/system.js';
 
-let {top, height} = uni.getMenuButtonBoundingClientRect()
-let titleBarHeight = ref(height + (top - statusBarHeight.value) * 2)
 </script>
 
 <style lang="scss" scoped>
@@ -44,7 +41,7 @@ let titleBarHeight = ref(height + (top - statusBarHeight.value) * 2)
 			align-content: center;
 			padding: 0 30rpx;
 			.title{
-				font-size: 22rpx;
+				font-size: 40rpx;
 				font-weight: 700;
 				color: #000;
 			}

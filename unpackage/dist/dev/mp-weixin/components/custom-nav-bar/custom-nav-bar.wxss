@@ -37,7 +37,7 @@
   padding: 0 30rpx;
 }
 .navBarLayout .navbar .titleBar .title.data-v-412fc155 {
-  font-size: 22rpx;
+  font-size: 40rpx;
   font-weight: 700;
   color: #000;
 }
