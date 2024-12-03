@@ -23,7 +23,7 @@
 					<view class="text">信息</view>
 				</view>
 				
-				<view class="box">
+				<view class="box" @click="clickScore">
 					<uni-icons type="star" size="28"></uni-icons>
 					<view class="text">5分</view>
 				</view>
@@ -85,6 +85,27 @@
 				</scroll-view>
 			</view>
 		</uni-popup>
+		
+		<uni-popup ref="scorePopup" :is-mask-click="false">
+			<view class="scorePopup">
+				<view class="popupHeader">
+					<view></view>
+					<view class="title">壁纸评分</view>
+					<view class="close" @click="clickScoreClose">
+						<uni-icons type="closeempty" size="18" color="#999"></uni-icons>
+					</view>
+				</view>
+				
+				<view class="content">
+					<uni-rate v-model="userScore" allowHalf=""></uni-rate>
+					<text class="text">{{userScore}}分</text>
+				</view>
+				
+				<view class="footer">
+					<button @click="submitScore" :disabled="!userScore" type="default" size="mini" plain="true">确认评分</button>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -93,6 +114,10 @@ import {ref} from 'vue';
 
 const maskState = ref(true)
 const infoPopup = ref(null)
+const scorePopup = ref(null)
+const userScore = ref(0)
+
+
 const maskChange = () =>{
 	maskState.value = !maskState.value
 }
@@ -101,6 +126,15 @@ const clickInfo = ()=>{
 }
 const clickInfoClose = ()=>{
 	infoPopup.value.close()
+}
+const clickScore = ()=>{
+	scorePopup.value.open()
+}
+const clickScoreClose = () =>{
+	scorePopup.value.close()
+}
+const submitScore = () =>{
+	console.log("已经评分了")
 }
 </script>
 
@@ -176,23 +210,23 @@ const clickInfoClose = ()=>{
 			}
 		}
 	}
-	
+	.popupHeader{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		.title{
+			color: #676767;
+		}
+		.close{
+			padding: 10rpx;
+		}
+	}
 	.infoPopup{
 		background-color: #fff;
 		padding: 30rpx;
 		border-radius: 30rpx 30rpx 0 0;
 		overflow: hidden;
-		.popupHeader{
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			.title{
-				color: #676767;
-			}
-			.close{
-				padding: 10rpx;
-			}
-		}
+		
 		scroll-view{
 			max-height: 60vh;
 			.content{
@@ -241,6 +275,31 @@ const clickInfoClose = ()=>{
 					}
 				}
 			}
+		}
+	}
+	.scorePopup{
+		background: #fff;
+		padding: 30rpx;
+		width: 70vw;
+		border-radius: 30rpx;
+		.content{
+			padding: 30rpx 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			.text{
+				padding-left: 10rpx;
+				color: #FFCA3E;
+				line-height: 1em;
+				width: 80rpx;
+				text-align: right;
+			}
+		}
+		.footer{
+			padding: 10rpx 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 	}
 }
