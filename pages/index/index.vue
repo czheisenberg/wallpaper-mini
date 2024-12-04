@@ -9,14 +9,8 @@
 				autoplay="true"
 				circular="true"
 			>
-				<swiper-item>
-					<image src="../../common/images/banner2.jpg" mode="aspectFill"></image>
-				</swiper-item>
-				<swiper-item>
-					<image src="../../common/images/banner1.jpg" mode="aspectFill"></image>
-				</swiper-item>
-				<swiper-item>
-					<image src="../../common/images/banner3.jpg" mode="aspectFill"></image>
+				<swiper-item v-for="item in bannerList" :key="item._id">
+					<image :src="item.picurl" mode="aspectFill"></image>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -53,8 +47,8 @@
 			</common-title>
 			<view class="content">
 				<scroll-view scroll-x="true" >
-					<view class="box" v-for="(item, index) in 8 " :key="index" @click="goPreview">
-						<image src="../../common/images/preview_small.webp" mode="aspectFill"></image>
+					<view class="box" v-for="item in randomList" :key="item._id" @click="goPreview">
+						<image :src="item.smallPicurl" mode="aspectFill"></image>
 					</view>
 				</scroll-view>
 			</view>
@@ -77,7 +71,27 @@
 </template>
 
 <script setup>
+import {ref} from 'vue';
+import {apiGetBanner, apiGetRandom} from '@/api/apis.js'
 
+const bannerList = ref([]);
+const randomList = ref([]);
+
+const getBanner = async () =>{
+	let res = await apiGetBanner();
+	if(res.data.errCode === 0){
+		bannerList.value = res.data.data
+	}
+}
+getBanner();
+
+const getRandomPic = async ()=>{
+	let res = await apiGetRandom();
+	if(res.data.errCode === 0){
+		randomList.value = res.data.data
+	}
+}
+getRandomPic();
 const goPreview = () =>{
 	uni.navigateTo({
 		url: "/pages/preview/preview"
