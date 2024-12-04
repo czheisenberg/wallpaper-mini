@@ -6,5 +6,12 @@ const apiGetBanner = () => {
 const apiGetRandom = () => {
   return utils_request.request({ url: "/randomWall" });
 };
+const apiGetClassify = (data = {}) => {
+  return utils_request.request({
+    url: "/classify",
+    data
+  });
+};
 exports.apiGetBanner = apiGetBanner;
+exports.apiGetClassify = apiGetClassify;
 exports.apiGetRandom = apiGetRandom;

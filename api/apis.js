@@ -7,3 +7,10 @@ export const apiGetBanner = () =>{
 export const apiGetRandom = () =>{
 	return request({url: "/randomWall"});
 }
+
+export const apiGetClassify = (data={}) => {
+	return request({
+		url: "/classify",
+		data,
+	})
+}

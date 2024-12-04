@@ -63,7 +63,11 @@
 			</common-title>
 			
 			<view class="content">
-				<theme-item v-for="(item, index) in 8" :key="index"></theme-item>
+				<theme-item 
+					v-for="(item, index) in classifyList" 
+					:key="item._id"
+					:item="item"
+				></theme-item>
 				<theme-item :isMore="true"></theme-item>
 			</view>
 		</view>
@@ -72,10 +76,15 @@
 
 <script setup>
 import {ref} from 'vue';
-import {apiGetBanner, apiGetRandom} from '@/api/apis.js'
+import {
+	apiGetBanner,
+	apiGetRandom,
+	apiGetClassify,
+} from '@/api/apis.js'
 
 const bannerList = ref([]);
 const randomList = ref([]);
+const classifyList = ref([]);
 
 const getBanner = async () =>{
 	let res = await apiGetBanner();
@@ -83,7 +92,6 @@ const getBanner = async () =>{
 		bannerList.value = res.data.data
 	}
 }
-getBanner();
 
 const getRandomPic = async ()=>{
 	let res = await apiGetRandom();
@@ -91,12 +99,24 @@ const getRandomPic = async ()=>{
 		randomList.value = res.data.data
 	}
 }
-getRandomPic();
+
+const getClassify = async () => {
+	let res = await apiGetClassify({
+		select: true
+	});
+	console.log("res: ", res);
+	classifyList.value = res.data.data
+}
+
 const goPreview = () =>{
 	uni.navigateTo({
 		url: "/pages/preview/preview"
 	})
 }
+
+getBanner();
+getRandomPic();
+getClassify();
 </script>
 
 <style lang="scss" scoped>

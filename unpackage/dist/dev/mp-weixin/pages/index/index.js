@@ -22,25 +22,34 @@ const _sfc_main = {
   setup(__props) {
     const bannerList = common_vendor.ref([]);
     const randomList = common_vendor.ref([]);
+    const classifyList = common_vendor.ref([]);
     const getBanner = async () => {
       let res = await api_apis.apiGetBanner();
       if (res.data.errCode === 0) {
         bannerList.value = res.data.data;
       }
     };
-    getBanner();
     const getRandomPic = async () => {
       let res = await api_apis.apiGetRandom();
       if (res.data.errCode === 0) {
         randomList.value = res.data.data;
       }
     };
-    getRandomPic();
+    const getClassify = async () => {
+      let res = await api_apis.apiGetClassify({
+        select: true
+      });
+      console.log("res: ", res);
+      classifyList.value = res.data.data;
+    };
     const goPreview = () => {
       common_vendor.index.navigateTo({
         url: "/pages/preview/preview"
       });
     };
+    getBanner();
+    getRandomPic();
+    getClassify();
     return (_ctx, _cache) => {
       return {
         a: common_vendor.p({
@@ -81,10 +90,13 @@ const _sfc_main = {
             c: common_vendor.o(goPreview, item._id)
           };
         }),
-        i: common_vendor.f(8, (item, index, i0) => {
+        i: common_vendor.f(classifyList.value, (item, index, i0) => {
           return {
-            a: index,
-            b: "1cf27b2a-7-" + i0
+            a: item._id,
+            b: "1cf27b2a-7-" + i0,
+            c: common_vendor.p({
+              item
+            })
           };
         }),
         j: common_vendor.p({

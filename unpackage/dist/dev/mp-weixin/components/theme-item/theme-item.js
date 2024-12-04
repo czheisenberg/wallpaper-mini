@@ -15,6 +15,16 @@ const _sfc_main = {
     isMore: {
       type: Boolean,
       default: false
+    },
+    item: {
+      type: Object,
+      default() {
+        return {
+          name: "默认名称",
+          picurl: "../../common/images/classify1.jpg",
+          updateTime: Date.now() - 1e3 * 60 * 60
+        };
+      }
     }
   },
   setup(__props) {
@@ -22,10 +32,11 @@ const _sfc_main = {
       return common_vendor.e({
         a: !__props.isMore
       }, !__props.isMore ? {
-        b: common_assets._imports_0$3
+        b: __props.item.picurl,
+        c: common_vendor.t(__props.item.name)
       } : {
-        c: common_assets._imports_1,
-        d: common_vendor.p({
+        d: common_assets._imports_0$3,
+        e: common_vendor.p({
           type: "more",
           size: "34",
           color: "#fff"
