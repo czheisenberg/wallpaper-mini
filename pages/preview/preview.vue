@@ -6,7 +6,7 @@
 			@change="swiperChange"
 		>
 			<swiper-item v-for="(item, index) in classList" :key="item._id">
-				<image @click="maskChange" :src="item.picurl" mode="aspectFill"></image>
+				<image v-if="readImages.includes(index)" @click="maskChange" :src="item.picurl" mode="aspectFill"></image>
 			</swiper-item>
 		</swiper>
 		
@@ -125,7 +125,9 @@ const userScore = ref(0)
 const classList = ref([])
 const currentId = ref(null)
 const currentIndex = ref(0)
+const readImages = ref([])
 
+// 从storage中读取数据
 const storageClassList =  uni.getStorageSync("storageClassList") || [];
 classList.value = storageClassList.map(item=>{
 	return{
@@ -134,34 +136,55 @@ classList.value = storageClassList.map(item=>{
 	}
 })
 
+// onLoad()声明周期
 onLoad((e)=>{
 	currentId.value = e.id
 	currentIndex.value = classList.value.findIndex(item=>item._id == currentId.value)
+	readImagesFunc();
 })
 
-const swiperChange = (e) => {
-	currentIndex.value = e.detail.current
+// 读取图片函数用于预加载前，中，后三张图
+function readImagesFunc(){
+	readImages.value.push(
+		currentIndex.value<=0 ? classList.value.length-1 : currentIndex.value-1,
+		currentIndex.value,
+		currentIndex.value>=classList.value.length ? 0 : currentIndex.value+1
+	)
+	readImages.value = [...new Set(readImages.value)]
 }
 
+// 轮播图切换
+const swiperChange = (e) => {
+	currentIndex.value = e.detail.current
+	readImagesFunc();
+}
+
+// 返回上一页
 const goBack = ()=>{
 	uni.navigateBack()
 }
 
+// 遮罩层切换(显示/不显示)
 const maskChange = () =>{
 	maskState.value = !maskState.value
 }
+// 点击弹出信息
 const clickInfo = ()=>{
 	infoPopup.value.open()
 }
+// 点击关闭信息
 const clickInfoClose = ()=>{
 	infoPopup.value.close()
 }
+// 点击评分弹出
 const clickScore = ()=>{
 	scorePopup.value.open()
 }
+// 点击评分关闭
 const clickScoreClose = () =>{
 	scorePopup.value.close()
 }
+// 提交评分
 const submitScore = () =>{
 	console.log("已经评分了")
 }

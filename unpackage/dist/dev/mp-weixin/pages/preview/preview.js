@@ -25,6 +25,7 @@ const _sfc_main = {
     const classList = common_vendor.ref([]);
     const currentId = common_vendor.ref(null);
     const currentIndex = common_vendor.ref(0);
+    const readImages = common_vendor.ref([]);
     const storageClassList = common_vendor.index.getStorageSync("storageClassList") || [];
     classList.value = storageClassList.map((item) => {
       return {
@@ -35,9 +36,19 @@ const _sfc_main = {
     common_vendor.onLoad((e) => {
       currentId.value = e.id;
       currentIndex.value = classList.value.findIndex((item) => item._id == currentId.value);
+      readImagesFunc();
     });
+    function readImagesFunc() {
+      readImages.value.push(
+        currentIndex.value <= 0 ? classList.value.length - 1 : currentIndex.value - 1,
+        currentIndex.value,
+        currentIndex.value >= classList.value.length ? 0 : currentIndex.value + 1
+      );
+      readImages.value = [...new Set(readImages.value)];
+    }
     const swiperChange = (e) => {
       currentIndex.value = e.detail.current;
+      readImagesFunc();
     };
     const goBack = () => {
       common_vendor.index.navigateBack();
@@ -63,11 +74,14 @@ const _sfc_main = {
     return (_ctx, _cache) => {
       return common_vendor.e({
         a: common_vendor.f(classList.value, (item, index, i0) => {
-          return {
-            a: common_vendor.o(maskChange, item._id),
-            b: item.picurl,
-            c: item._id
-          };
+          return common_vendor.e({
+            a: readImages.value.includes(index)
+          }, readImages.value.includes(index) ? {
+            b: common_vendor.o(maskChange, item._id),
+            c: item.picurl
+          } : {}, {
+            d: item._id
+          });
         }),
         b: currentIndex.value,
         c: common_vendor.o(swiperChange),
