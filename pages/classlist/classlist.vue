@@ -1,5 +1,8 @@
 <template>
 	<view class="classlist">
+		<view class="loadingLayout" v-if="!classList.length && !noData">
+			<uni-load-more status="loading"></uni-load-more>
+		</view>
 		<view class="content">
 			<navigator 
 				url="/pages/preview/preview" 
@@ -9,6 +12,11 @@
 				<image :src="item.smallPicurl" mode="aspectFill"></image>
 			</navigator>
 		</view>
+		<view class="loadingLayout" v-if="classList.length">
+			<uni-load-more :status="noData? 'noMore': 'loading'"></uni-load-more>
+		</view>
+		
+		<view class="safe-area-inset-bottom"></view>
 	</view>
 </template>
 
@@ -52,7 +60,6 @@ const getClassList = async()=>{
 	classList.value = [...classList.value,...res.data.data]
 	if(queryParams.pageSize > res.data.length)
 		noData.value = true
-	
 }
 
 
