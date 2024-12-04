@@ -14,15 +14,21 @@
 
 <script setup>
 import { ref } from 'vue';
-import { onLoad } from '@dcloudio/uni-app';
+import { onLoad, onReachBottom } from '@dcloudio/uni-app';
 import { apiGetClassList } from "@/api/apis.js";
 
 const classList = ref([]);
+const noData = ref(false);
 
-const queryParams = {}
+// onLoad() 获取请求参数
+const queryParams = {
+	pageNum: 1,
+	pageSize: 12,
+}
 onLoad((e)=>{
 	let { id, name } = e;
 	queryParams.classid = id
+	// 修改导航标题
 	uni.setNavigationBarTitle({
 		title: name
 	})
@@ -30,12 +36,23 @@ onLoad((e)=>{
 	getClassList();
 });
 
+onReachBottom(()=>{
+	if(noData.value) return;
+	queryParams.pageNum++;
+	getClassList();
+})
+
+// 分类网格
 const getClassList = async()=>{
 	let res = await apiGetClassList({
-		classid: queryParams.classid
+		classid: queryParams.classid,
+		pageNum: queryParams.pageNum,
+		pageSize: queryParams.pageSize,
 	});
-	console.log("res: ", res);
-	classList.value = res.data.data
+	classList.value = [...classList.value,...res.data.data]
+	if(queryParams.pageSize > res.data.length)
+		noData.value = true
+	
 }
 
 

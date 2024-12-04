@@ -9,7 +9,7 @@ function request(config = {}) {
     header = {}
   } = config;
   url = BASE_URL + url;
-  header["access-key"] = "yyds112";
+  header["access-key"] = "220044";
   return new Promise((resolve, reject) => {
     common_vendor.index.request({
       url,

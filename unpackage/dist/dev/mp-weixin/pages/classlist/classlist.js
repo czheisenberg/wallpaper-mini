@@ -5,7 +5,11 @@ const _sfc_main = {
   __name: "classlist",
   setup(__props) {
     const classList = common_vendor.ref([]);
-    const queryParams = {};
+    const noData = common_vendor.ref(false);
+    const queryParams = {
+      pageNum: 1,
+      pageSize: 12
+    };
     common_vendor.onLoad((e) => {
       let { id, name } = e;
       queryParams.classid = id;
@@ -14,12 +18,21 @@ const _sfc_main = {
       });
       getClassList();
     });
+    common_vendor.onReachBottom(() => {
+      if (noData.value)
+        return;
+      queryParams.pageNum++;
+      getClassList();
+    });
     const getClassList = async () => {
       let res = await api_apis.apiGetClassList({
-        classid: queryParams.classid
+        classid: queryParams.classid,
+        pageNum: queryParams.pageNum,
+        pageSize: queryParams.pageSize
       });
-      console.log("res: ", res);
-      classList.value = res.data.data;
+      classList.value = [...classList.value, ...res.data.data];
+      if (queryParams.pageSize > res.data.length)
+        noData.value = true;
     };
     return (_ctx, _cache) => {
       return {
