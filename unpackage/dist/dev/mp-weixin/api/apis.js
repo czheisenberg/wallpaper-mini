@@ -18,7 +18,14 @@ const apiGetClassList = (data = {}) => {
     data
   });
 };
+const apiGetSetupScore = (data = {}) => {
+  return utils_request.request({
+    url: "/setupScore",
+    data
+  });
+};
 exports.apiGetBanner = apiGetBanner;
 exports.apiGetClassList = apiGetClassList;
 exports.apiGetClassify = apiGetClassify;
 exports.apiGetRandom = apiGetRandom;
+exports.apiGetSetupScore = apiGetSetupScore;

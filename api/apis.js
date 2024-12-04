@@ -21,3 +21,10 @@ export const apiGetClassList = (data={}) =>{
 		data,
 	})
 }
+
+export const apiGetSetupScore = (data={}) => {
+	return request({
+		url: "/setupScore",
+		data,
+	})
+}

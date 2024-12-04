@@ -154,6 +154,7 @@
 }
 .preview .infoPopup scroll-view .content .row .tags.data-v-2dad6c07 {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
 }
 .preview .infoPopup scroll-view .content .row .tags .tag.data-v-2dad6c07 {
@@ -164,6 +165,8 @@
   border-radius: 40rpx;
   color: #28b389;
   margin: 0 10rpx 10rpx 0;
+  display: flex;
+  align-items: center;
 }
 .preview .infoPopup scroll-view .content .row .classify.data-v-2dad6c07 {
   color: #28b389;

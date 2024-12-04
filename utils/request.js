@@ -8,7 +8,7 @@ export function request(config={}){
 		header={}
 	} = config;
 	url = BASE_URL + url;
-	header['access-key'] = "220044";
+	header['access-key'] = "263681";
 	return new Promise((resolve, reject)=>{
 		uni.request({
 			url,

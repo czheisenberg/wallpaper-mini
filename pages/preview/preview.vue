@@ -29,7 +29,7 @@
 				
 				<view class="box" @click="clickScore">
 					<uni-icons type="star" size="28"></uni-icons>
-					<view class="text">5分</view>
+					<view class="text">{{currentInfo.userScore ? currentInfo.userScore : currentInfo.score}}分</view>
 				</view>
 				
 				<view class="box">
@@ -52,33 +52,34 @@
 					<view class="content">
 						<view class="row">
 							<view class="label">壁纸ID:</view>
-							<text selectable class="value id"> 132234141axs</text>
+							<text selectable class="value id"> {{currentInfo._id}}</text>
 						</view>
 						<view class="row">
 							<view class="label">分类:</view>
-							<text selectable class="value classify"> 明星美女</text>
+							<text selectable class="value classify"> 美女</text>
 						</view>
 						<view class="row">
 							<view class="label">发布者:</view>
-							<text selectable class="value"> root</text>
+							<text selectable class="value"> {{currentInfo.nickname}}</text>
 						</view>
 						<view class="row">
 							<view class="label">评分:</view>
 							<text selectable class="value">
-								<uni-rate readonly="true" value="3"/>
+								{{currentInfo.userScore ? currentInfo.userScore : currentInfo.score}}
+								<uni-rate :value="currentInfo.userScore ? currentInfo.userScore : currentInfo.score"></uni-rate>
+								<!-- <text class="score">{{currentInfo.score}}分</text> -->
 							</text>
 						</view>
 						<view class="row">
 							<view class="label">摘要:</view>
 							<text selectable class="value">
-								测试摘要内容测试摘要内容测试摘要内容测试摘要内容测试摘要内容测试摘要内容测试摘要内容
-								测试摘要内容测试摘要内容测试摘要内容测试摘要内容测试摘要内容测试摘要内容测试摘要内容
+								{{currentInfo.description}}
 							</text>
 						</view>
 						<view class="row">
 							<view class="label">标签:</view>
 							<view class="value tags">
-								<view class="tag" v-for="(item, index) in 3" :key="index">标签名</view>
+								<view class="tag" v-for="(tab, index) in currentInfo.tabs" :key="index">{{tab}}</view>
 							</view>
 						</view>
 						
@@ -94,19 +95,19 @@
 			<view class="scorePopup">
 				<view class="popupHeader">
 					<view></view>
-					<view class="title">壁纸评分</view>
+					<view class="title">{{isScore ? '评分过了~' : '壁纸评分'}}</view>
 					<view class="close" @click="clickScoreClose">
 						<uni-icons type="closeempty" size="18" color="#999"></uni-icons>
 					</view>
 				</view>
 				
 				<view class="content">
-					<uni-rate v-model="userScore" allowHalf=""></uni-rate>
+					<uni-rate v-model="userScore" allowHalf="" :disabled="isScore" disabled-color="#FFCA3E"></uni-rate>
 					<text class="text">{{userScore}}分</text>
 				</view>
 				
 				<view class="footer">
-					<button @click="submitScore" :disabled="!userScore" type="default" size="mini" plain="true">确认评分</button>
+					<button @click="submitScore" :disabled="!userScore || isScore" type="default" size="mini" plain="true">确认评分</button>
 				</view>
 			</view>
 		</uni-popup>
@@ -116,6 +117,7 @@
 <script setup>
 import {ref} from 'vue';
 import {getStatusBarHeight} from "@/utils/system.js";
+import { apiGetSetupScore } from "@/api/apis.js";
 import { onLoad } from '@dcloudio/uni-app';
 
 const maskState = ref(true)
@@ -126,6 +128,8 @@ const classList = ref([])
 const currentId = ref(null)
 const currentIndex = ref(0)
 const readImages = ref([])
+const currentInfo = ref(null)
+const isScore = ref(false)
 
 // 从storage中读取数据
 const storageClassList =  uni.getStorageSync("storageClassList") || [];
@@ -140,9 +144,9 @@ classList.value = storageClassList.map(item=>{
 onLoad((e)=>{
 	currentId.value = e.id
 	currentIndex.value = classList.value.findIndex(item=>item._id == currentId.value)
+	currentInfo.value = classList.value[currentIndex.value]
 	readImagesFunc();
 })
-
 // 读取图片函数用于预加载前，中，后三张图
 function readImagesFunc(){
 	readImages.value.push(
@@ -156,6 +160,7 @@ function readImagesFunc(){
 // 轮播图切换
 const swiperChange = (e) => {
 	currentIndex.value = e.detail.current
+	currentInfo.value = classList.value[currentIndex.value]
 	readImagesFunc();
 }
 
@@ -179,14 +184,39 @@ const clickInfoClose = ()=>{
 // 点击评分弹出
 const clickScore = ()=>{
 	scorePopup.value.open()
+	if(currentInfo.value.userScore){
+		isScore.value = true
+		userScore.value = currentInfo.value.userScore
+	}
 }
 // 点击评分关闭
 const clickScoreClose = () =>{
 	scorePopup.value.close()
+	userScore.value = 0
+	isScore.value = false
 }
 // 提交评分
-const submitScore = () =>{
-	console.log("已经评分了")
+const submitScore = async () =>{
+	uni.showLoading({
+		title:"加载中"
+	})
+	let { classid,_id:wallId } = currentInfo.value
+	let res = await apiGetSetupScore({
+		classid,
+		wallId,
+		userScore: userScore.value
+	})
+	uni.hideLoading()
+	if(res.data.errCode === 0){
+		uni.showToast({
+			title:"评分成功",
+			icon:"none"
+		})
+		classList.value[currentIndex.value].userScore = userScore.value
+		uni.setStorageSync("storageClassList", classList.value)
+		clickScoreClose();
+	}
+	console.log("res: ", res)
 }
 </script>
 
@@ -318,6 +348,7 @@ const submitScore = () =>{
 					}
 					.tags{
 						display: flex;
+						align-items: center;
 						flex-wrap: wrap;
 						.tag{
 							padding: 10rpx 30rpx;
@@ -327,7 +358,8 @@ const submitScore = () =>{
 							border-radius: 40rpx;
 							color: $brand-theme-color;
 							margin: 0 10rpx 10rpx 0;
-			
+							display: flex;
+							align-items: center;
 						}
 					}
 					.classify{
