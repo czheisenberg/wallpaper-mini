@@ -52,7 +52,7 @@ const _sfc_main = {
             b: index
           };
         }),
-        b: common_assets._imports_0$2,
+        b: common_assets._imports_0$1,
         c: maskState.value
       }, maskState.value ? {
         d: common_vendor.p({

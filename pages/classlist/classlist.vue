@@ -1,14 +1,42 @@
 <template>
 	<view class="classlist">
 		<view class="content">
-			<navigator url="/pages/preview/preview" class="item" v-for="(item, index) in 10" :key="index">
-				<image src="../../common/images/preview2.jpg" mode="aspectFill"></image>
+			<navigator 
+				url="/pages/preview/preview" 
+				class="item" 
+				v-for="(item, index) in classList" 
+				:key="item._id">
+				<image :src="item.smallPicurl" mode="aspectFill"></image>
 			</navigator>
 		</view>
 	</view>
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { onLoad } from '@dcloudio/uni-app';
+import { apiGetClassList } from "@/api/apis.js";
+
+const classList = ref([]);
+
+const queryParams = {}
+onLoad((e)=>{
+	let { id, name } = e;
+	queryParams.classid = id
+	uni.setNavigationBarTitle({
+		title: name
+	})
+	
+	getClassList();
+});
+
+const getClassList = async()=>{
+	let res = await apiGetClassList({
+		classid: queryParams.classid
+	});
+	console.log("res: ", res);
+	classList.value = res.data.data
+}
 
 
 </script>

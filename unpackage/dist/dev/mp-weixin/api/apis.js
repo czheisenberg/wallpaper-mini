@@ -12,6 +12,13 @@ const apiGetClassify = (data = {}) => {
     data
   });
 };
+const apiGetClassList = (data = {}) => {
+  return utils_request.request({
+    url: "/wallList",
+    data
+  });
+};
 exports.apiGetBanner = apiGetBanner;
+exports.apiGetClassList = apiGetClassList;
 exports.apiGetClassify = apiGetClassify;
 exports.apiGetRandom = apiGetRandom;

@@ -104,7 +104,6 @@ const getClassify = async () => {
 	let res = await apiGetClassify({
 		select: true
 	});
-	console.log("res: ", res);
 	classifyList.value = res.data.data
 }
 

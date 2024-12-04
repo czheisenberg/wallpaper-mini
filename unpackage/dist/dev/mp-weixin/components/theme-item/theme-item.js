@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
+const utils_common = require("../../utils/common.js");
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
   _easycom_uni_icons2();
@@ -33,10 +34,12 @@ const _sfc_main = {
         a: !__props.isMore
       }, !__props.isMore ? {
         b: __props.item.picurl,
-        c: common_vendor.t(__props.item.name)
+        c: common_vendor.t(__props.item.name),
+        d: common_vendor.t(common_vendor.unref(utils_common.compareTimestamp)(__props.item.updateTime)),
+        e: "/pages/classlist/classlist?id=" + __props.item._id + "&name=" + __props.item.name
       } : {
-        d: common_assets._imports_0$3,
-        e: common_vendor.p({
+        f: common_assets._imports_0$2,
+        g: common_vendor.p({
           type: "more",
           size: "34",
           color: "#fff"

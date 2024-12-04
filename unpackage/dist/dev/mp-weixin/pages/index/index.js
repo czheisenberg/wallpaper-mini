@@ -39,7 +39,6 @@ const _sfc_main = {
       let res = await api_apis.apiGetClassify({
         select: true
       });
-      console.log("res: ", res);
       classifyList.value = res.data.data;
     };
     const goPreview = () => {

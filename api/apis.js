@@ -14,3 +14,10 @@ export const apiGetClassify = (data={}) => {
 		data,
 	})
 }
+
+export const apiGetClassList = (data={}) =>{
+	return request({
+		url: "/wallList",
+		data,
+	})
+}
