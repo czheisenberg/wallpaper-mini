@@ -41,6 +41,7 @@ const _sfc_main = {
       classList.value = [...classList.value, ...res.data.data];
       if (queryParams.pageSize > res.data.length)
         noData.value = true;
+      common_vendor.index.setStorageSync("storageClassList", classList.value);
     };
     return (_ctx, _cache) => {
       return common_vendor.e({
@@ -53,7 +54,8 @@ const _sfc_main = {
         c: common_vendor.f(classList.value, (item, index, i0) => {
           return {
             a: item.smallPicurl,
-            b: item._id
+            b: "/pages/preview/preview?id=" + item._id,
+            c: item._id
           };
         }),
         d: classList.value.length

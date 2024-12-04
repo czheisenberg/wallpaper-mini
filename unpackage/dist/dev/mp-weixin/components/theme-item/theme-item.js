@@ -38,7 +38,7 @@ const _sfc_main = {
         d: common_vendor.t(common_vendor.unref(utils_common.compareTimestamp)(__props.item.updateTime)),
         e: "/pages/classlist/classlist?id=" + __props.item._id + "&name=" + __props.item.name
       } : {
-        f: common_assets._imports_0$2,
+        f: common_assets._imports_0$1,
         g: common_vendor.p({
           type: "more",
           size: "34",

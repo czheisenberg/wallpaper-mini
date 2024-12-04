@@ -5,7 +5,7 @@
 		</view>
 		<view class="content">
 			<navigator 
-				url="/pages/preview/preview" 
+				:url="'/pages/preview/preview?id=' + item._id" 
 				class="item" 
 				v-for="(item, index) in classList" 
 				:key="item._id">
@@ -60,6 +60,7 @@ const getClassList = async()=>{
 	classList.value = [...classList.value,...res.data.data]
 	if(queryParams.pageSize > res.data.length)
 		noData.value = true
+	uni.setStorageSync("storageClassList", classList.value)
 }
 
 

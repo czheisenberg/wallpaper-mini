@@ -2,9 +2,11 @@
 	<view class="preview">
 		<swiper
 			circular="true"
+			:current="currentIndex"
+			@change="swiperChange"
 		>
-			<swiper-item v-for="(item, index) in 5" :key="index">
-				<image @click="maskChange" src="../../common/images/preview1.jpg" mode="aspectFill"></image>
+			<swiper-item v-for="(item, index) in classList" :key="item._id">
+				<image @click="maskChange" :src="item.picurl" mode="aspectFill"></image>
 			</swiper-item>
 		</swiper>
 		
@@ -12,7 +14,7 @@
 			<view class="goback" @click="goBack" :style="{top: getStatusBarHeight() + 'px'}">
 				<uni-icons type="back" size="20" color="#fff"></uni-icons>
 			</view>
-			<view class="count">3 / 5</view>
+			<view class="count">{{currentIndex + 1}} / {{classList.length}}</view>
 			<view class="time">
 				<uni-dateformat :date="new Date()" format="hh:mm"></uni-dateformat>
 			</view>
@@ -113,12 +115,33 @@
 
 <script setup>
 import {ref} from 'vue';
-import {getStatusBarHeight} from "@/utils/system.js"
+import {getStatusBarHeight} from "@/utils/system.js";
+import { onLoad } from '@dcloudio/uni-app';
 
 const maskState = ref(true)
 const infoPopup = ref(null)
 const scorePopup = ref(null)
 const userScore = ref(0)
+const classList = ref([])
+const currentId = ref(null)
+const currentIndex = ref(0)
+
+const storageClassList =  uni.getStorageSync("storageClassList") || [];
+classList.value = storageClassList.map(item=>{
+	return{
+		...item,
+		picurl: item.smallPicurl.replace("_small.webp", ".jpg")
+	}
+})
+
+onLoad((e)=>{
+	currentId.value = e.id
+	currentIndex.value = classList.value.findIndex(item=>item._id == currentId.value)
+})
+
+const swiperChange = (e) => {
+	currentIndex.value = e.detail.current
+}
 
 const goBack = ()=>{
 	uni.navigateBack()

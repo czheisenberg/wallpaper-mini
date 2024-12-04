@@ -1,6 +1,5 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const common_assets = require("../../common/assets.js");
 const utils_system = require("../../utils/system.js");
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
@@ -23,6 +22,23 @@ const _sfc_main = {
     const infoPopup = common_vendor.ref(null);
     const scorePopup = common_vendor.ref(null);
     const userScore = common_vendor.ref(0);
+    const classList = common_vendor.ref([]);
+    const currentId = common_vendor.ref(null);
+    const currentIndex = common_vendor.ref(0);
+    const storageClassList = common_vendor.index.getStorageSync("storageClassList") || [];
+    classList.value = storageClassList.map((item) => {
+      return {
+        ...item,
+        picurl: item.smallPicurl.replace("_small.webp", ".jpg")
+      };
+    });
+    common_vendor.onLoad((e) => {
+      currentId.value = e.id;
+      currentIndex.value = classList.value.findIndex((item) => item._id == currentId.value);
+    });
+    const swiperChange = (e) => {
+      currentIndex.value = e.detail.current;
+    };
     const goBack = () => {
       common_vendor.index.navigateBack();
     };
@@ -46,84 +62,88 @@ const _sfc_main = {
     };
     return (_ctx, _cache) => {
       return common_vendor.e({
-        a: common_vendor.f(5, (item, index, i0) => {
+        a: common_vendor.f(classList.value, (item, index, i0) => {
           return {
-            a: common_vendor.o(maskChange, index),
-            b: index
+            a: common_vendor.o(maskChange, item._id),
+            b: item.picurl,
+            c: item._id
           };
         }),
-        b: common_assets._imports_0$1,
-        c: maskState.value
+        b: currentIndex.value,
+        c: common_vendor.o(swiperChange),
+        d: maskState.value
       }, maskState.value ? {
-        d: common_vendor.p({
+        e: common_vendor.p({
           type: "back",
           size: "20",
           color: "#fff"
         }),
-        e: common_vendor.o(goBack),
-        f: common_vendor.unref(utils_system.getStatusBarHeight)() + "px",
-        g: common_vendor.p({
+        f: common_vendor.o(goBack),
+        g: common_vendor.unref(utils_system.getStatusBarHeight)() + "px",
+        h: common_vendor.t(currentIndex.value + 1),
+        i: common_vendor.t(classList.value.length),
+        j: common_vendor.p({
           date: /* @__PURE__ */ new Date(),
           format: "hh:mm"
         }),
-        h: common_vendor.p({
+        k: common_vendor.p({
           date: /* @__PURE__ */ new Date(),
           format: "MM月dd日"
         }),
-        i: common_vendor.p({
+        l: common_vendor.p({
           type: "info",
           size: "28"
         }),
-        j: common_vendor.o(clickInfo),
-        k: common_vendor.p({
+        m: common_vendor.o(clickInfo),
+        n: common_vendor.p({
           type: "star",
           size: "28"
         }),
-        l: common_vendor.o(clickScore),
-        m: common_vendor.p({
+        o: common_vendor.o(clickScore),
+        p: common_vendor.p({
           type: "download",
           size: "24"
         })
       } : {}, {
-        n: common_vendor.p({
+        q: common_vendor.p({
           type: "closeempty",
           size: "18",
           color: "#999"
         }),
-        o: common_vendor.o(clickInfoClose),
-        p: common_vendor.p({
+        r: common_vendor.o(clickInfoClose),
+        s: common_vendor.p({
           readonly: "true",
           value: "3"
         }),
-        q: common_vendor.f(3, (item, index, i0) => {
+        t: common_vendor.f(3, (item, index, i0) => {
           return {
             a: index
           };
         }),
-        r: common_vendor.sr(infoPopup, "2dad6c07-6", {
+        v: common_vendor.sr(infoPopup, "2dad6c07-6", {
           "k": "infoPopup"
         }),
-        s: common_vendor.p({
+        w: common_vendor.p({
           type: "bottom"
         }),
-        t: common_vendor.p({
+        x: common_vendor.p({
           type: "closeempty",
           size: "18",
           color: "#999"
         }),
-        v: common_vendor.o(clickScoreClose),
-        w: common_vendor.o(($event) => userScore.value = $event),
-        x: common_vendor.p({
+        y: common_vendor.o(clickScoreClose),
+        z: common_vendor.o(($event) => userScore.value = $event),
+        A: common_vendor.p({
           allowHalf: "",
           modelValue: userScore.value
         }),
-        y: common_vendor.t(userScore.value),
-        z: common_vendor.o(submitScore),
-        A: !userScore.value,
-        B: common_vendor.sr(scorePopup, "2dad6c07-9", {
+        B: common_vendor.t(userScore.value),
+        C: common_vendor.o(submitScore),
+        D: !userScore.value,
+        E: common_vendor.sr(scorePopup, "2dad6c07-9", {
           "k": "scorePopup"
         }),
-        C: common_vendor.p({
+        F: common_vendor.p({
           ["is-mask-click"]: false
         })
       });
