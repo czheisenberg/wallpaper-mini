@@ -46,6 +46,17 @@ const _sfc_main = {
         url: "/pages/preview/preview"
       });
     };
+    common_vendor.onShareAppMessage((e) => {
+      return {
+        title: "毒师宇宙壁纸",
+        path: "/pages/index/index"
+      };
+    });
+    common_vendor.onShareTimeline((e) => {
+      return {
+        title: "毒师宇宙壁纸"
+      };
+    });
     getBanner();
     getRandomPic();
     getClassify();
@@ -106,4 +117,5 @@ const _sfc_main = {
   }
 };
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1cf27b2a"]]);
+_sfc_main.__runtimeHooks = 6;
 wx.createPage(MiniProgramPage);

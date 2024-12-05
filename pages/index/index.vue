@@ -81,11 +81,13 @@ import {
 	apiGetRandom,
 	apiGetClassify,
 } from '@/api/apis.js'
+import { onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
 
 const bannerList = ref([]);
 const randomList = ref([]);
 const classifyList = ref([]);
 
+// 获取banner
 const getBanner = async () =>{
 	let res = await apiGetBanner();
 	if(res.data.errCode === 0){
@@ -93,6 +95,7 @@ const getBanner = async () =>{
 	}
 }
 
+// 获取每日推荐的几张图片
 const getRandomPic = async ()=>{
 	let res = await apiGetRandom();
 	if(res.data.errCode === 0){
@@ -100,6 +103,7 @@ const getRandomPic = async ()=>{
 	}
 }
 
+// 专题精选为分类
 const getClassify = async () => {
 	let res = await apiGetClassify({
 		select: true
@@ -107,11 +111,27 @@ const getClassify = async () => {
 	classifyList.value = res.data.data
 }
 
+// 跳转到预览页面
 const goPreview = () =>{
 	uni.navigateTo({
 		url: "/pages/preview/preview"
 	})
 }
+
+// 分享功能
+onShareAppMessage((e)=>{
+	return{
+		title: "毒师宇宙壁纸",
+		path: "/pages/index/index",
+	}
+})
+
+// 分析到朋友圈（微信）
+onShareTimeline((e)=>{
+	return{
+		title: "毒师宇宙壁纸",
+	}
+})
 
 getBanner();
 getRandomPic();
