@@ -1,11 +1,13 @@
 <template>
-	<view class="userLayout pageBg">
+	<view class="userLayout pageBg" v-if="userInfo">
+		<view :style="{height: getNavBarHeight() + 'px'}"></view>
 		<view class="userInfo">
 			<view class="avatar">
 				<image src="../../static/images/5.jpg" mode="aspectFill"></image>
 			</view>
 			<view class="nickname">鸡你太美</view>
-			<view class="ip">IP: 重庆</view>
+			<view class="ip">IP: {{userInfo.IP}}</view>
+			<view class="ip">地址: {{userInfo.address.province}}</view>
 		</view>
 		
 		<view class="section">
@@ -17,7 +19,7 @@
 						<view class="text">我的下载</view>
 					</view>
 					<view class="right">
-						<view class="text">33</view>
+						<view class="text">{{userInfo.downloadSize}}</view>
 						<uni-icons type="right" size="20" color="#aaa"></uni-icons>
 					</view>
 				</view>
@@ -30,7 +32,7 @@
 						<view class="text">我的评分</view>
 					</view>
 					<view class="right">
-						<view class="text">3</view>
+						<view class="text">{{userInfo.scoreSize}}</view>
 						<uni-icons type="right" size="20" color="#aaa"></uni-icons>
 					</view>
 				</view>
@@ -42,7 +44,7 @@
 						<view class="text">联系客服</view>
 					</view>
 					<view class="right">
-						<view class="text">0</view>
+						<view class="text"></view>
 						<uni-icons type="right" size="20" color="#aaa"></uni-icons>
 					</view>
 					<!-- #ifdef MP-WEIXIN -->
@@ -81,9 +83,19 @@
 			</view>
 		</view>
 	</view>
+	
+	<view class="loadingLayout" v-else>
+		<view :style="{height: getNavBarHeight() + 'px'}"></view>
+		<uni-load-more status="loading"></uni-load-more>
+	</view>
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { getNavBarHeight } from '@/utils/system.js';
+import { apiUserInfo } from '@/api/apis.js';
+
+const userInfo = ref(null);
 
 const clickConcat = function(){
 	uni.makePhoneCall({
@@ -91,6 +103,13 @@ const clickConcat = function(){
 	})
 }
 
+const getUserInfo = () =>{
+	apiUserInfo().then(res=>{
+		userInfo.value = res.data.data
+		console.log("🚀 user.vue 104 Lines. ", userInfo.value);
+	})
+}
+getUserInfo();
 </script>
 
 <style lang="scss" scoped>

@@ -30,9 +30,16 @@ const apiWriteDownload = (data = {}) => {
     data
   });
 };
+const apiUserInfo = (data = {}) => {
+  return utils_request.request({
+    url: "/userInfo",
+    data
+  });
+};
 exports.apiGetBanner = apiGetBanner;
 exports.apiGetClassList = apiGetClassList;
 exports.apiGetClassify = apiGetClassify;
 exports.apiGetRandom = apiGetRandom;
 exports.apiGetSetupScore = apiGetSetupScore;
+exports.apiUserInfo = apiUserInfo;
 exports.apiWriteDownload = apiWriteDownload;

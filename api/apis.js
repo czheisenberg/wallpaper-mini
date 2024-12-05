@@ -35,3 +35,10 @@ export const apiWriteDownload = (data={}) => {
 		data,
 	})
 }
+
+export const apiUserInfo = (data={}) => {
+	return request({
+		url: "/userInfo",
+		data,
+	})
+}
