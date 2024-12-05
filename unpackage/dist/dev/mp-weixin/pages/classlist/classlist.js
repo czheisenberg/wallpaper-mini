@@ -43,6 +43,9 @@ const _sfc_main = {
         noData.value = true;
       common_vendor.index.setStorageSync("storageClassList", classList.value);
     };
+    common_vendor.onUnload(() => {
+      common_vendor.index.removeStorageSync("storageClassList");
+    });
     return (_ctx, _cache) => {
       return common_vendor.e({
         a: !classList.value.length && !noData.value

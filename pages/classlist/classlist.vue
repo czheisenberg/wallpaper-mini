@@ -22,7 +22,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { onLoad, onReachBottom } from '@dcloudio/uni-app';
+import { onLoad, onUnload, onReachBottom } from '@dcloudio/uni-app';
 import { apiGetClassList } from "@/api/apis.js";
 
 const classList = ref([]);
@@ -63,6 +63,11 @@ const getClassList = async()=>{
 	uni.setStorageSync("storageClassList", classList.value)
 }
 
+// onUnload 离开页面时的操作
+onUnload(()=>{
+	// 离开页面清楚缓存
+	uni.removeStorageSync("storageClassList")
+})
 
 </script>
 
