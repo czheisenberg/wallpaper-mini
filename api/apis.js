@@ -28,3 +28,10 @@ export const apiGetSetupScore = (data={}) => {
 		data,
 	})
 }
+
+export const apiWriteDownload = (data={}) => {
+	return request({
+		url: "/downloadWall",
+		data,
+	})
+}

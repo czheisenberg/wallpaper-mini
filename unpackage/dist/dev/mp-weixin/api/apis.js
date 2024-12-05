@@ -24,8 +24,15 @@ const apiGetSetupScore = (data = {}) => {
     data
   });
 };
+const apiWriteDownload = (data = {}) => {
+  return utils_request.request({
+    url: "/downloadWall",
+    data
+  });
+};
 exports.apiGetBanner = apiGetBanner;
 exports.apiGetClassList = apiGetClassList;
 exports.apiGetClassify = apiGetClassify;
 exports.apiGetRandom = apiGetRandom;
 exports.apiGetSetupScore = apiGetSetupScore;
+exports.apiWriteDownload = apiWriteDownload;

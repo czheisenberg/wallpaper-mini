@@ -83,7 +83,10 @@ const _sfc_main = {
       common_vendor.index.showLoading({
         title: "加载中"
       });
-      let { classid, _id: wallId } = currentInfo.value;
+      let {
+        classid,
+        _id: wallId
+      } = currentInfo.value;
       let res = await api_apis.apiGetSetupScore({
         classid,
         wallId,
@@ -100,46 +103,62 @@ const _sfc_main = {
         clickScoreClose();
       }
     };
-    const clickDownload = () => {
-      common_vendor.index.showLoading({
-        title: "下载中...",
-        mask: true
-      });
-      common_vendor.index.getImageInfo({
-        src: currentInfo.value.picurl,
-        success: (res) => {
-          common_vendor.index.saveImageToPhotosAlbum({
-            filePath: res.path,
-            success: (res2) => {
-              common_vendor.index.showToast({
-                title: "下载成功!",
-                icon: "none"
-              });
-            },
-            fail: (err) => {
-              if (err.errMsg == "saveImageToPhotosAlbum:fail cancel") {
+    const clickDownload = async () => {
+      try {
+        common_vendor.index.showLoading({
+          title: "下载中...",
+          mask: true
+        });
+        let {
+          classid,
+          _id: wallId
+        } = currentInfo.value;
+        let res = await api_apis.apiWriteDownload({
+          classid,
+          wallId
+        });
+        console.log("resrs: ", res);
+        if (res.data.errCode != 0)
+          throw res;
+        common_vendor.index.getImageInfo({
+          src: currentInfo.value.picurl,
+          success: (res2) => {
+            common_vendor.index.saveImageToPhotosAlbum({
+              filePath: res2.path,
+              success: (res3) => {
                 common_vendor.index.showToast({
-                  title: "下载失败，请重新点击下载!",
+                  title: "下载成功!",
                   icon: "none"
                 });
-                return;
-              }
-              common_vendor.index.showModal({
-                title: "提示",
-                content: "需要授权保存相册",
-                success: (res2) => {
-                  if (res2.confirm) {
-                    console.log("确认授权了");
-                  }
+              },
+              fail: (err) => {
+                if (err.errMsg == "saveImageToPhotosAlbum:fail cancel") {
+                  common_vendor.index.showToast({
+                    title: "下载失败，请重新点击下载!",
+                    icon: "none"
+                  });
+                  return;
                 }
-              });
-            },
-            complete: () => {
-              common_vendor.index.hideLoading();
-            }
-          });
-        }
-      });
+                common_vendor.index.showModal({
+                  title: "提示",
+                  content: "需要授权保存相册",
+                  success: (res3) => {
+                    if (res3.confirm) {
+                      console.log("确认授权了");
+                    }
+                  }
+                });
+              },
+              complete: () => {
+                common_vendor.index.hideLoading();
+              }
+            });
+          }
+        });
+      } catch (err) {
+        console.log("errerr: ", err);
+        common_vendor.index.hideLoading();
+      }
     };
     return (_ctx, _cache) => {
       return common_vendor.e({
@@ -156,7 +175,7 @@ const _sfc_main = {
         b: currentIndex.value,
         c: common_vendor.o(swiperChange),
         d: maskState.value
-      }, maskState.value ? {
+      }, maskState.value ? common_vendor.e({
         e: common_vendor.p({
           type: "back",
           size: "20",
@@ -179,64 +198,70 @@ const _sfc_main = {
           size: "28"
         }),
         m: common_vendor.o(clickInfo),
-        n: common_vendor.p({
+        n: currentInfo.value
+      }, currentInfo.value ? {
+        o: common_vendor.p({
           type: "star",
           size: "28"
         }),
-        o: common_vendor.t(currentInfo.value.userScore ? currentInfo.value.userScore : currentInfo.value.score),
-        p: common_vendor.o(clickScore),
-        q: common_vendor.p({
+        p: common_vendor.t(currentInfo.value.userScore ? currentInfo.value.userScore : currentInfo.value.score),
+        q: common_vendor.o(clickScore)
+      } : {}, {
+        r: common_vendor.p({
           type: "download",
           size: "24"
         }),
-        r: common_vendor.o(clickDownload)
-      } : {}, {
-        s: common_vendor.p({
+        s: common_vendor.o(clickDownload)
+      }) : {}, {
+        t: common_vendor.p({
           type: "closeempty",
           size: "18",
           color: "#999"
         }),
-        t: common_vendor.o(clickInfoClose),
-        v: common_vendor.t(currentInfo.value._id),
-        w: common_vendor.t(currentInfo.value.nickname),
-        x: common_vendor.t(currentInfo.value.userScore ? currentInfo.value.userScore : currentInfo.value.score),
-        y: common_vendor.p({
+        v: common_vendor.o(clickInfoClose),
+        w: currentInfo.value
+      }, currentInfo.value ? {
+        x: common_vendor.t(currentInfo.value._id),
+        y: common_vendor.t(currentInfo.value.nickname),
+        z: common_vendor.t(currentInfo.value.userScore ? currentInfo.value.userScore : currentInfo.value.score),
+        A: common_vendor.p({
           value: currentInfo.value.userScore ? currentInfo.value.userScore : currentInfo.value.score
         }),
-        z: common_vendor.t(currentInfo.value.description),
-        A: common_vendor.f(currentInfo.value.tabs, (tab, index, i0) => {
+        B: common_vendor.t(currentInfo.value.description),
+        C: common_vendor.f(currentInfo.value.tabs, (tab, index, i0) => {
           return {
             a: common_vendor.t(tab),
             b: index
           };
-        }),
-        B: common_vendor.sr(infoPopup, "2dad6c07-6", {
+        })
+      } : {}, {
+        D: common_vendor.sr(infoPopup, "2dad6c07-6", {
           "k": "infoPopup"
         }),
-        C: common_vendor.p({
+        E: common_vendor.p({
           type: "bottom"
         }),
-        D: common_vendor.t(isScore.value ? "评分过了~" : "壁纸评分"),
-        E: common_vendor.p({
+        F: common_vendor.t(isScore.value ? "评分过了~" : "壁纸评分"),
+        G: common_vendor.p({
           type: "closeempty",
           size: "18",
           color: "#999"
         }),
-        F: common_vendor.o(clickScoreClose),
-        G: common_vendor.o(($event) => userScore.value = $event),
-        H: common_vendor.p({
+        H: common_vendor.o(clickScoreClose),
+        I: common_vendor.o(($event) => userScore.value = $event),
+        J: common_vendor.p({
           allowHalf: "",
           disabled: isScore.value,
           ["disabled-color"]: "#FFCA3E",
           modelValue: userScore.value
         }),
-        I: common_vendor.t(userScore.value),
-        J: common_vendor.o(submitScore),
-        K: !userScore.value || isScore.value,
-        L: common_vendor.sr(scorePopup, "2dad6c07-9", {
+        K: common_vendor.t(userScore.value),
+        L: common_vendor.o(submitScore),
+        M: !userScore.value || isScore.value,
+        N: common_vendor.sr(scorePopup, "2dad6c07-9", {
           "k": "scorePopup"
         }),
-        M: common_vendor.p({
+        O: common_vendor.p({
           ["is-mask-click"]: false
         })
       });
