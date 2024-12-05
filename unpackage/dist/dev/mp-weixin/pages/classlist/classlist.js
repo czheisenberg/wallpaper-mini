@@ -1,7 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const api_apis = require("../../api/apis.js");
-const utils_common = require("../../utils/common.js");
 if (!Array) {
   const _easycom_uni_load_more2 = common_vendor.resolveComponent("uni-load-more");
   _easycom_uni_load_more2();
@@ -20,10 +19,11 @@ const _sfc_main = {
       pageSize: 12
     };
     common_vendor.onLoad((e) => {
-      let { id = null, name = null } = e;
-      if (!id)
-        utils_common.gotoHome();
-      queryParams.classid = id;
+      let { id = null, name = null, type = null } = e;
+      if (type)
+        queryParams.type = type;
+      if (id)
+        queryParams.classid = id;
       common_vendor.index.setNavigationBarTitle({
         title: name
       });
@@ -36,16 +36,17 @@ const _sfc_main = {
       getClassList();
     });
     const getClassList = async () => {
-      let res = await api_apis.apiGetClassList({
-        classid: queryParams.classid,
-        pageNum: queryParams.pageNum,
-        pageSize: queryParams.pageSize
-      });
+      let res;
+      if (queryParams.classid)
+        res = await api_apis.apiGetClassList(queryParams);
+      if (queryParams.type)
+        res = await api_apis.apiGetHistoryInfo(queryParams);
       classList.value = [...classList.value, ...res.data.data];
       if (queryParams.pageSize > res.data.length)
         noData.value = true;
       common_vendor.index.setStorageSync("storageClassList", classList.value);
     };
+    console.log("🚀🚀🚀 classlist.vue 65 Lines. ", noData.value);
     common_vendor.onUnload(() => {
       common_vendor.index.removeStorageSync("storageClassList");
     });
@@ -64,8 +65,8 @@ const _sfc_main = {
             c: item._id
           };
         }),
-        d: classList.value.length
-      }, classList.value.length ? {
+        d: classList.value.length || noData.value
+      }, classList.value.length || noData.value ? {
         e: common_vendor.p({
           status: noData.value ? "noMore" : "loading"
         })

@@ -36,9 +36,16 @@ const apiUserInfo = (data = {}) => {
     data
   });
 };
+const apiGetHistoryInfo = (data = {}) => {
+  return utils_request.request({
+    url: "/userWallList",
+    data
+  });
+};
 exports.apiGetBanner = apiGetBanner;
 exports.apiGetClassList = apiGetClassList;
 exports.apiGetClassify = apiGetClassify;
+exports.apiGetHistoryInfo = apiGetHistoryInfo;
 exports.apiGetRandom = apiGetRandom;
 exports.apiGetSetupScore = apiGetSetupScore;
 exports.apiUserInfo = apiUserInfo;

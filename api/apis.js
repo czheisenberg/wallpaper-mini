@@ -42,3 +42,11 @@ export const apiUserInfo = (data={}) => {
 		data,
 	})
 }
+
+export const apiGetHistoryInfo = (data={}) => {
+	return request({
+		url: "/userWallList",
+		data,
+	})
+}
+

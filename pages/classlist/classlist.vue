@@ -12,7 +12,7 @@
 				<image :src="item.smallPicurl" mode="aspectFill"></image>
 			</navigator>
 		</view>
-		<view class="loadingLayout" v-if="classList.length">
+		<view class="loadingLayout" v-if="classList.length || noData">
 			<uni-load-more :status="noData? 'noMore': 'loading'"></uni-load-more>
 		</view>
 		
@@ -23,7 +23,7 @@
 <script setup>
 import { ref } from 'vue';
 import { onLoad, onUnload, onReachBottom } from '@dcloudio/uni-app';
-import { apiGetClassList } from "@/api/apis.js";
+import { apiGetClassList, apiGetHistoryInfo } from "@/api/apis.js";
 import { gotoHome } from '@/utils/common.js';
 
 const classList = ref([]);
@@ -35,9 +35,9 @@ const queryParams = {
 	pageSize: 12,
 }
 onLoad((e)=>{
-	let { id=null, name=null } = e;
-	if(!id) gotoHome();
-	queryParams.classid = id
+	let { id=null, name=null, type=null } = e;
+	if(type) queryParams.type = type;
+	if(id) queryParams.classid = id;
 	// 修改导航标题
 	uni.setNavigationBarTitle({
 		title: name
@@ -54,17 +54,15 @@ onReachBottom(()=>{
 
 // 分类网格
 const getClassList = async()=>{
-	let res = await apiGetClassList({
-		classid: queryParams.classid,
-		pageNum: queryParams.pageNum,
-		pageSize: queryParams.pageSize,
-	});
-	classList.value = [...classList.value,...res.data.data]
-	if(queryParams.pageSize > res.data.length)
-		noData.value = true
-	uni.setStorageSync("storageClassList", classList.value)
+	let res;
+	if(queryParams.classid) res = await apiGetClassList(queryParams);
+	if(queryParams.type) res = await apiGetHistoryInfo(queryParams);
+	
+	classList.value = [...classList.value,...res.data.data];
+	if(queryParams.pageSize > res.data.length) noData.value = true;
+	uni.setStorageSync("storageClassList", classList.value);
 }
-
+console.log("🚀🚀🚀 classlist.vue 65 Lines. ", noData.value);
 // onUnload 离开页面时的操作
 onUnload(()=>{
 	// 离开页面清楚缓存
