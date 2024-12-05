@@ -41,9 +41,10 @@ const _sfc_main = {
       });
       classifyList.value = res.data.data;
     };
-    const goPreview = () => {
+    const goPreview = (id) => {
+      common_vendor.index.setStorageSync("storageClassList", randomList.value);
       common_vendor.index.navigateTo({
-        url: "/pages/preview/preview"
+        url: "/pages/preview/preview?id=" + id
       });
     };
     common_vendor.onShareAppMessage((e) => {
@@ -97,7 +98,7 @@ const _sfc_main = {
           return {
             a: item.smallPicurl,
             b: item._id,
-            c: common_vendor.o(goPreview, item._id)
+            c: common_vendor.o(($event) => goPreview(item._id), item._id)
           };
         }),
         i: common_vendor.f(classifyList.value, (item, index, i0) => {
