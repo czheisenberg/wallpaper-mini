@@ -32,7 +32,7 @@
 					<view class="text">{{currentInfo.userScore ? currentInfo.userScore : currentInfo.score}}分</view>
 				</view>
 				
-				<view class="box">
+				<view class="box" @click="clickDownload">
 					<uni-icons type="download" size="24"></uni-icons>
 					<view class="text">下载</view>
 				</view>
@@ -216,7 +216,64 @@ const submitScore = async () =>{
 		uni.setStorageSync("storageClassList", classList.value)
 		clickScoreClose();
 	}
-	console.log("res: ", res)
+}
+
+// 点击下载
+const clickDownload = ()=>{
+	// #ifdef H5
+		uni.showModal({
+			content: "长按保存壁纸",
+			showCancel: false
+		})
+	// #endif
+	
+	// #ifndef H5
+	uni.showLoading({
+		title: "下载中...",
+		mask: true,
+	})
+	uni.getImageInfo({
+		src:currentInfo.value.picurl,
+		success: (res) => {
+			uni.saveImageToPhotosAlbum({
+				filePath: res.path,
+				success: (res) => {
+					uni.showToast({
+						title: "下载成功!",
+						icon: "none",
+					})
+				},
+				fail:(err) => {
+					if(err.errMsg == "saveImageToPhotosAlbum:fail cancel"){
+						uni.showToast({
+							title: "下载失败，请重新点击下载!",
+							icon: "none"
+						})
+						return
+					}
+					uni.showModal({
+						title: "提示",
+						content: "需要授权保存相册",
+						success: (res) => {
+							if(res.confirm){
+								console.log("确认授权了")
+							}
+						}
+					})
+				},
+				complete: () => {
+					uni.hideLoading();
+				}
+			})
+		}
+	})
+	// uni.saveImageToPhotosAlbum({
+	// 	filePath: currentInfo.value.picurl,
+	// 	success: (res) => {
+	// 		console.log("download res: ", res)
+	// 	}
+	// })
+	// #endif
 }
 </script>
 
