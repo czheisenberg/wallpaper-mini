@@ -42,11 +42,18 @@ const apiGetHistoryInfo = (data = {}) => {
     data
   });
 };
+function apiSearchData(data = {}) {
+  return utils_request.request({
+    url: "/searchWall",
+    data
+  });
+}
 exports.apiGetBanner = apiGetBanner;
 exports.apiGetClassList = apiGetClassList;
 exports.apiGetClassify = apiGetClassify;
 exports.apiGetHistoryInfo = apiGetHistoryInfo;
 exports.apiGetRandom = apiGetRandom;
 exports.apiGetSetupScore = apiGetSetupScore;
+exports.apiSearchData = apiSearchData;
 exports.apiUserInfo = apiUserInfo;
 exports.apiWriteDownload = apiWriteDownload;

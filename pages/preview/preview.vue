@@ -51,10 +51,10 @@
 							<view class="label">壁纸ID:</view>
 							<text selectable class="value id"> {{currentInfo._id}}</text>
 						</view>
-						<view class="row">
+						<!-- <view class="row">
 							<view class="label">分类:</view>
 							<text selectable class="value classify"> 美女</text>
-						</view>
+						</view> -->
 						<view class="row">
 							<view class="label">发布者:</view>
 							<text selectable class="value"> {{currentInfo.nickname}}</text>

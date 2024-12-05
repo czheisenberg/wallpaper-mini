@@ -51,6 +51,13 @@
 				"navigationBarTitleText" : "预览",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/search/search",
+			"style" : 
+			{
+				"navigationBarTitleText" : "搜索"
+			}
 		}
 	],
 	"globalStyle": {

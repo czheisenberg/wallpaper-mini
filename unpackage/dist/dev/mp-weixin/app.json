@@ -6,7 +6,8 @@
     "pages/classlist/classlist",
     "pages/notice/notice",
     "pages/notice/detail",
-    "pages/preview/preview"
+    "pages/preview/preview",
+    "pages/search/search"
   ],
   "window": {
     "navigationBarTextStyle": "black",
