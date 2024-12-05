@@ -36,7 +36,7 @@
 			</view>
 		</view>
 
-		<uni-popup ref="infoPopup" type="bottom">
+		<uni-popup ref="infoPopup" type="bottom" :safe-area="false">
 			<view class="infoPopup">
 				<view class="popupHeader">
 					<view></view>

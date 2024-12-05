@@ -239,7 +239,8 @@ const _sfc_main = {
           "k": "infoPopup"
         }),
         E: common_vendor.p({
-          type: "bottom"
+          type: "bottom",
+          ["safe-area"]: false
         }),
         F: common_vendor.t(isScore.value ? "评分过了~" : "壁纸评分"),
         G: common_vendor.p({

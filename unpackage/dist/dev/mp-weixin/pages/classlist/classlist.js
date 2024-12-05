@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const api_apis = require("../../api/apis.js");
+const utils_common = require("../../utils/common.js");
 if (!Array) {
   const _easycom_uni_load_more2 = common_vendor.resolveComponent("uni-load-more");
   _easycom_uni_load_more2();
@@ -19,7 +20,9 @@ const _sfc_main = {
       pageSize: 12
     };
     common_vendor.onLoad((e) => {
-      let { id, name } = e;
+      let { id = null, name = null } = e;
+      if (!id)
+        utils_common.gotoHome();
       queryParams.classid = id;
       common_vendor.index.setNavigationBarTitle({
         title: name

@@ -24,6 +24,7 @@
 import { ref } from 'vue';
 import { onLoad, onUnload, onReachBottom } from '@dcloudio/uni-app';
 import { apiGetClassList } from "@/api/apis.js";
+import { gotoHome } from '@/utils/common.js';
 
 const classList = ref([]);
 const noData = ref(false);
@@ -34,7 +35,8 @@ const queryParams = {
 	pageSize: 12,
 }
 onLoad((e)=>{
-	let { id, name } = e;
+	let { id=null, name=null } = e;
+	if(!id) gotoHome();
 	queryParams.classid = id
 	// 修改导航标题
 	uni.setNavigationBarTitle({
